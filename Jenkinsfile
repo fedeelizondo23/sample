@@ -23,14 +23,29 @@ pipeline {
       }
     }
     stage('Approve') {
+      when {
+	branch 'production'
+      }
       steps {
         input(message: 'Se aprueba?', submitter: 'fede')
       }
     }
-    stage('Deploy') {
+    stage('Deploy to development') {
+      when {
+	branch 'development'
+      }
       steps {
         echo 'Successful'
       }
     }
+     stage('Deploy to production') {
+      when {
+	branch 'production'
+      }
+      steps {
+        echo 'Successful'
+      }
+    }
+
   }
 }
